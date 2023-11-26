@@ -22,8 +22,6 @@ namespace ViewModel
         {
             set
             {
-                if (_utilisateurActuel != value)
-                {
                     _utilisateurActuel = value;
                     LivresUtil = new ObservableCollection<Livre>();
                     CommandesAttenteUtil = new ObservableCollection<CommandeDetail>();
@@ -52,7 +50,7 @@ namespace ViewModel
                     }
                     OnPropertyChanged(nameof(UtilisateurActuel));
 
-                }
+                
             }
             get { return _utilisateurActuel; }
         }
@@ -150,21 +148,28 @@ namespace ViewModel
             {
                 Membres.Add(membre);
             }
+            updateAllCommandes();
+        }
+        private void updateAllCommandes()
+        {
+            allCommandesAttente.Clear();
+            allCommandesTraitee.Clear();
             foreach (Membre membre in Membres)
             {
-                foreach(Commande commande in membre.Commandes)
+                foreach (Commande commande in membre.Commandes)
                 {
                     CommandeDetail commandeDetail = ConvertToCommandeDetail(commande, membre.Nom);
                     allCommandes.Add(commandeDetail);
                     if (commandeDetail.Statut.Equals("Attente"))
                     {
                         allCommandesAttente.Add(commandeDetail);
-                    } else
+                    }
+                    else
                     {
                         allCommandesTraitee.Add(commandeDetail);
                     }
                 }
-                
+
             }
         }
         private CommandeDetail ConvertToCommandeDetail(Commande commande, string nom)
@@ -177,6 +182,21 @@ namespace ViewModel
             return null;
         }
 
+
+        public void ajouterCommande(string titre, string isbn, string auteur, string editeur, string anneeString)
+        {
+            int.TryParse(anneeString, out int annee);
+            Livres.Add(new Livre(titre,auteur,editeur,annee,isbn));
+            foreach(Membre membre in Membres)
+            {
+                if (membre == UtilisateurActuel)
+                {
+                    membre.Commandes.Add(new Commande("Attente", isbn));
+                    UtilisateurActuel = membre;
+                }
+            }
+            updateAllCommandes();
+        }
         public void TraiterCommande(CommandeDetail commande)
         {
 
@@ -208,6 +228,7 @@ namespace ViewModel
             foundMember.Commandes.Remove(foundCommand);
             foundCommand.Statut = "Traitee";
             foundMember.Commandes.Add(foundCommand);
+            UtilisateurActuel = foundMember;
         }
         public void ChangerUtilisateur(Object obj)
         {

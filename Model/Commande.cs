@@ -23,6 +23,12 @@ namespace Model
             Statut = string.Empty;
             ISBN = string.Empty;
         }
+        public Commande(string statut, string iSBN)
+        {
+            Statut = statut;
+            ISBN = iSBN;
+        }
+
         public override string ToString()
         {
             return $"";

@@ -29,6 +29,12 @@ namespace View
             DataContext = viewModel;
         }
 
+        private void confirmerClick(object sender, RoutedEventArgs e)
+        {
+            viewModel.ajouterCommande(TitreBox.Text, ISBNBox.Text, AuteurBox.Text, EditeurBox.Text, AnneeBox.Text);
+            this.Close();
+        }
+
         private void confirmIsEnabled(object sender, TextChangedEventArgs e)
         {
             confirmerButton.IsEnabled = canConfirm();
@@ -42,8 +48,13 @@ namespace View
             {
                 if (ISBNBox.Text.Length == 13 && Regex.IsMatch(ISBNBox.Text, @"^\d+$"))
                 {
-                    return true;
-                } else { return false; }
+                    if (int.TryParse(AnneeBox.Text, out int result))
+                    {
+                        return result > -3000;
+                    }
+                    return false;
+                }
+                else { return false; }
             } else { return false; }
         }
     }

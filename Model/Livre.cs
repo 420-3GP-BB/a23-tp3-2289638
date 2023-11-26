@@ -29,6 +29,15 @@ namespace Model
             int.TryParse(annee.InnerText, out int parsedAnnee);
             Annee = parsedAnnee;
         }
+        public Livre(string titre, string auteur, string editeur, int annee, string iSBN)
+        {
+            Titre = titre;
+            Auteur = auteur;
+            Editeur = editeur;
+            Annee = annee;
+            ISBN = iSBN;
+        }
+
         public override string ToString()
         {
             return$"{Titre}, par {Auteur} ({Annee}); {Editeur}";
