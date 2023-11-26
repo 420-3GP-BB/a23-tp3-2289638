@@ -7,18 +7,18 @@ using System.Xml;
 
 namespace Model
 {
-    internal class Bibliotheque
+    public class Bibliotheque
     {
-        string DernierUtilisateur;
-        List<Livre> LivreList;
-        List<Membre> MembreList;
+        public string DernierUtilisateur;
+        public List<Livre> LivreList;
+        public List<Membre> MembreList;
 
         public Bibliotheque(string pathFichier)
         {
             LivreList = new List<Livre>();
             MembreList = new List<Membre>();
             XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(pathFichier);
+            xmlDocument.Load(pathFichier);
             XmlElement? root = xmlDocument.DocumentElement;
             DernierUtilisateur = root.GetAttribute("dernierUtilisateur");
             XmlNode membresRoot = root.SelectSingleNode("membres");
