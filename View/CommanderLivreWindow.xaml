@@ -26,11 +26,11 @@
             <TextBlock Text="Annee:" Width="75" Margin="0,0,0,4" Height="16"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
-            <TextBox Margin="0,0,0,4" Height="16"/>
-            <TextBox Margin="0,0,0,4" Height="16"/>
-            <TextBox Margin="0,0,0,4" Height="16"/>
-            <TextBox Margin="0,0,0,4" Height="16"/>
-            <TextBox Margin="0,0,0,4" Height="16"/>
+            <TextBox Margin="0,0,0,4" Height="16" x:Name="ISBNBox" TextChanged="confirmIsEnabled"/>
+            <TextBox Margin="0,0,0,4" Height="16" x:Name="TitreBox" TextChanged="confirmIsEnabled"/>
+            <TextBox Margin="0,0,0,4" Height="16" x:Name="AuteurBox" TextChanged="confirmIsEnabled"/>
+            <TextBox Margin="0,0,0,4" Height="16" x:Name="EditeurBox" TextChanged="confirmIsEnabled"/>
+            <TextBox Margin="0,0,0,4" Height="16" x:Name="AnneeBox" TextChanged="confirmIsEnabled"/>
             <Button x:Name="confirmerButton" IsEnabled="False" Content="Confirmer la commande" Width="250"/>
         </StackPanel>
     </Grid>
