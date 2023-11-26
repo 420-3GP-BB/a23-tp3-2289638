@@ -1,0 +1,19 @@
+﻿<Window x:Class="View.UtilisateurChoix"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Title="UtilisateurChoix" Height="150" Width="250">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center">
+            <TextBlock Text="Choisissez un utilisateur" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                <TextBlock Text="Utilisateur:"/>
+                <ComboBox x:Name="dropdownBox" Width="150" Height="18"/>
+            </StackPanel>
+            <Button x:Name="confirmerButton" Content="Confirmer" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>
