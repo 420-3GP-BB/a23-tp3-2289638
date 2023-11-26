@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,18 +8,16 @@ using System.Xml;
 
 namespace Model
 {
-    internal class Membre
+    public class Membre
     {
-        string Nom;
-        bool Admin;
-        List<string> LivresISBN;
-        List<Commande> Commandes;
-
-
+        public string Nom;
+        public bool Admin;
+        public List<string> LivresISBN;
+        public ObservableCollection<Commande> Commandes;
         public Membre(XmlNode node)
         {
             LivresISBN = new List<string>();
-            Commandes = new List<Commande>();
+            Commandes = new ObservableCollection<Commande>();
             XmlElement? element = node as XmlElement;
             Nom = element.GetAttribute("nom");
             Admin = Convert.ToBoolean(element.GetAttribute("administrateur"));
@@ -39,6 +38,15 @@ namespace Model
                     Commandes.Add(new Commande(commande));
                 }
             }
+        }
+        public Membre()
+        {
+            Nom = string.Empty;
+            Admin = false;
+        }
+        public override string ToString()
+        {
+            return Nom;
         }
     }
 }

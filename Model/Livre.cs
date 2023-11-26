@@ -7,13 +7,13 @@ using System.Xml;
 
 namespace Model
 {
-    internal class Livre
+    public class Livre
     {
-        string Titre;
-        string Auteur;
-        string Editeur;
-        int Annee;
-        string ISBN;
+        public string Titre;
+        public string Auteur;
+        public string Editeur;
+        public int Annee;
+        public string ISBN;
 
         public Livre(XmlNode livreNode)
         {
@@ -28,6 +28,10 @@ namespace Model
             Editeur = editeur.InnerText;
             int.TryParse(annee.InnerText, out int parsedAnnee);
             Annee = parsedAnnee;
+        }
+        public override string ToString()
+        {
+            return$"{Titre}, par {Auteur} ({Annee}); {Editeur}";
         }
     }
 }
