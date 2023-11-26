@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        Title="AdminWindow" Height="720" Width="1280"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <DataTemplate x:Key="CommandeDetailTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Titre}" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Auteur}"/>
+                <TextBlock Text="{Binding Annee}"/>
+                <TextBlock Text="{Binding NomMembre}" FontWeight="Bold"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Commandes en attente" FontSize="18" FontWeight="Heavy" HorizontalAlignment="Center" Margin="20"/>
+        <TextBlock Text="Commandes traitees" FontSize="18" FontWeight="Heavy" HorizontalAlignment="Center" Margin="20" Grid.Column="1"/>
+        <ListBox Grid.Row="1" BorderBrush="Black" Margin="10" BorderThickness="2" ItemsSource="{Binding allCommandesAttente}"
+                 ItemTemplate="{StaticResource CommandeDetailTemplate}" MouseDoubleClick="commandeDouble_Click"/>
+        <ListBox Grid.Row="1" Grid.Column="1" BorderBrush="Black" Margin="10" BorderThickness="2" ItemsSource="{Binding allCommandesTraitee}"
+                 ItemTemplate="{StaticResource CommandeDetailTemplate}"/>
+        <Button Click="revenirClick" Content="Revenir" Grid.Column="1" Grid.Row="2" Width="150" Margin="10" HorizontalAlignment="Right"/>
     </Grid>
 </Window>
