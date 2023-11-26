@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModel;
 
 namespace View
 {
@@ -16,9 +17,43 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
+        private char DIR_SEPARATOR = System.IO.Path.DirectorySeparatorChar;
+        public BibliothequeViewModel _viewModel;
+        
         public MainWindow()
         {
+            string fichierBibliotheque = "bibliotheque.xml";
+            string pathMesDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string pathDossier = $"{pathMesDocuments}{DIR_SEPARATOR}Fichiers-3GP";
+            string pathFichier = $"{pathDossier}{DIR_SEPARATOR}{fichierBibliotheque}";
+            _viewModel = new BibliothequeViewModel(pathFichier);
             InitializeComponent();
+            DataContext = _viewModel;
+        }
+        private void changerUtilClick(object sender, RoutedEventArgs e)
+        {
+            UtilisateurChoix window = new UtilisateurChoix(_viewModel);
+            window.Owner = this;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.ShowDialog();
+        }
+        private void quitterClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void adminClick(object sender, RoutedEventArgs e)
+        {
+            AdminWindow window = new AdminWindow(_viewModel);
+            window.Owner = this;
+            window.WindowStartupLocation= WindowStartupLocation.CenterOwner;
+            window.ShowDialog();
+        }
+        private void nvCommandeClick(object sender, RoutedEventArgs e)
+        {
+            CommanderLivreWindow window = new CommanderLivreWindow(_viewModel);
+            window.Owner = this;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.ShowDialog();
         }
     }
 }

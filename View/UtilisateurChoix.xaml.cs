@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ViewModel;
 
 namespace View
 {
@@ -19,9 +20,16 @@ namespace View
     /// </summary>
     public partial class UtilisateurChoix : Window
     {
-        public UtilisateurChoix()
+        public BibliothequeViewModel _viewModel;
+        public UtilisateurChoix(BibliothequeViewModel viewModel)
         {
             InitializeComponent();
+            _viewModel = viewModel;
+            DataContext = _viewModel;
+        }
+        public void confirmerClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

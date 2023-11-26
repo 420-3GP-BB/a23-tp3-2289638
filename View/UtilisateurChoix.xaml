@@ -11,9 +11,9 @@
             <TextBlock Text="Choisissez un utilisateur" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                 <TextBlock Text="Utilisateur:"/>
-                <ComboBox x:Name="dropdownBox" Width="150" Height="18"/>
+                <ComboBox x:Name="dropdownBox" Width="150" Height="18" ItemsSource="{Binding Membres, Mode=OneWay}" SelectedItem="{Binding UtilisateurActuel, Mode=TwoWay}"/>
             </StackPanel>
-            <Button x:Name="confirmerButton" Content="Confirmer" Width="100"/>
+            <Button Click="confirmerClick" Content="Confirmer" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>
