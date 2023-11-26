@@ -11,6 +11,47 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10,30,0,0">
+            <TextBlock Text="Nom de l'utilisateur:" FontWeight="ExtraBold" FontSize="28" Margin="0,0,40,0"/>
+            <TextBlock Text="Placeholder" FontSize="28"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="130,30,0,0">
+            <Button x:Name="changerUtilistaeurButton" Content="Changer d'utilisateur" Height="20" Width="150" Margin="0,0,20,0"/>
+            <Button x:Name="modeAdminButton" Content="Mode administrateur" Height="20" Width="150" Margin="0,0,20,0"/>
+            <Button x:Name="quitterButton" Content="Quitter" Height="20" Width="150" Margin="0,0,20,0"/>
+        </StackPanel>
+        <Border Margin="10" Grid.Row="1" BorderBrush="Black" BorderThickness="3">
+            <StackPanel>
+                <TextBlock Text="Livres de l'utilisateur" FontSize="18" FontWeight="Heavy" HorizontalAlignment="Center"/>
+                <TextBox Height="525" IsReadOnly="True" Margin="5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                    <Button x:Name="commanderLivreButton" Content="Commander livre" Width="200" Margin="0,0,100,0"/>
+                    <Button x:Name="transfererLivreButton" Content="Transferer Livre" Width="200"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <Border Height="300" BorderBrush="Black" BorderThickness="3" Margin="0,0,0,15">
+                <StackPanel>
+                    <TextBlock Text="Commandes en attente" FontSize="18" FontWeight="Heavy" HorizontalAlignment="Center"/>
+                    <ListBox Height="210" Margin="5"/>
+                    <Button x:Name="annulerCommandeButton" HorizontalAlignment="Center" Content="Annuler commande" Margin="10" Width="150"/>
+                </StackPanel>
+            </Border>
+            <Border Height="300" BorderBrush="Black" BorderThickness="3">
+                <StackPanel>
+                    <TextBlock Text="Commandes traitees" FontSize="18" FontWeight="Heavy" HorizontalAlignment="Center"/>
+                    <ListBox Height="210" Margin="5"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Window>
