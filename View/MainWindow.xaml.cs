@@ -32,7 +32,14 @@ namespace View
         }
         private void changerUtilClick(object sender, RoutedEventArgs e)
         {
-            UtilisateurChoix window = new UtilisateurChoix(_viewModel);
+            UtilisateurChoix window = new UtilisateurChoix(_viewModel, true);
+            window.Owner = this;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.ShowDialog();
+        }
+        private void transfererLivreClick(object sender, RoutedEventArgs e)
+        {
+            UtilisateurChoix window = new UtilisateurChoix(_viewModel, false);
             window.Owner = this;
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
@@ -47,6 +54,10 @@ namespace View
             window.Owner = this;
             window.WindowStartupLocation= WindowStartupLocation.CenterOwner;
             window.ShowDialog();
+        }
+        private void annulerCommandeClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.retirerCommande(attenteListBox.SelectedItem);
         }
         private void nvCommandeClick(object sender, RoutedEventArgs e)
         {

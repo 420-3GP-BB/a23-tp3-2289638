@@ -21,14 +21,24 @@ namespace View
     public partial class UtilisateurChoix : Window
     {
         public BibliothequeViewModel _viewModel;
-        public UtilisateurChoix(BibliothequeViewModel viewModel)
+        bool IsChange;
+        public UtilisateurChoix(BibliothequeViewModel viewModel, bool isChangeUser)
         {
             InitializeComponent();
             _viewModel = viewModel;
             DataContext = _viewModel;
+            IsChange = isChangeUser;
         }
         public void confirmerClick(object sender, RoutedEventArgs e)
         {
+            if (IsChange)
+            {
+                _viewModel.ChangerUtilisateur();
+            } else
+            {
+                _viewModel.TransfererLivre();
+            }
+
             this.Close();
         }
     }

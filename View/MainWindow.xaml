@@ -31,10 +31,10 @@
         <Border Margin="10" Grid.Row="1" BorderBrush="Black" BorderThickness="3">
             <StackPanel>
                 <TextBlock Text="Livres de l'utilisateur" FontSize="18" FontWeight="Heavy" HorizontalAlignment="Center"/>
-                <ListBox Height="525" Margin="5" ItemsSource="{Binding LivresUtil}"/>
+                <ListBox Height="525" Margin="5" ItemsSource="{Binding LivresUtil}" x:Name="listBoxLivres" SelectedItem="{Binding selectedLivre, Mode=TwoWay}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                     <Button Click="nvCommandeClick" Content="Commander livre" Width="200" Margin="0,0,100,0"/>
-                    <Button x:Name="transfererLivreButton" Content="Transferer Livre" Width="200"/>
+                    <Button Click="transfererLivreClick" Content="Transferer Livre" Width="200" IsEnabled="{Binding isSelectedBook}"/>
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -42,8 +42,8 @@
             <Border Height="300" BorderBrush="Black" BorderThickness="3" Margin="0,0,0,15">
                 <StackPanel>
                     <TextBlock Text="Commandes en attente" FontSize="18" FontWeight="Heavy" HorizontalAlignment="Center"/>
-                    <ListBox Height="210" Margin="5" ItemsSource="{Binding CommandesAttenteUtil}"/>
-                    <Button x:Name="annulerCommandeButton" HorizontalAlignment="Center" Content="Annuler commande" Margin="10" Width="150"/>
+                    <ListBox Height="210" Margin="5" ItemsSource="{Binding CommandesAttenteUtil}" x:Name="attenteListBox"/>
+                    <Button Click="annulerCommandeClick" HorizontalAlignment="Center" Content="Annuler commande" Margin="10" Width="150"/>
                 </StackPanel>
             </Border>
             <Border Height="300" BorderBrush="Black" BorderThickness="3">

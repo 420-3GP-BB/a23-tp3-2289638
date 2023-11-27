@@ -16,6 +16,7 @@ namespace ViewModel
         public ObservableCollection<Livre> Livres { get; private set; }
         public ObservableCollection<Membre> Membres { get; private set; }
         public ObservableCollection<CommandeDetail> allCommandes { get; private set; }
+        public Membre choixUtil { get; set; }
         private Membre _utilisateurActuel;
 
         public Membre UtilisateurActuel
@@ -114,6 +115,36 @@ namespace ViewModel
                 OnPropertyChanged(nameof(isAdmin));
             }
         }
+        private bool _isSelectedBook;
+        public bool isSelectedBook 
+        {
+            get
+            {
+                return _isSelectedBook;
+            }
+            set
+            {
+                _isSelectedBook = value;
+                OnPropertyChanged(nameof(isSelectedBook));
+            }
+        }
+        private Livre _selectedLivre;
+        public Livre selectedLivre
+        {
+            get
+            {
+                return _selectedLivre;
+            }
+            set
+            {
+                _selectedLivre = value;
+                OnPropertyChanged(nameof(selectedLivre));
+                if(value is Livre)
+                {
+                    isSelectedBook = true;
+                }
+            }
+        }
         private ObservableCollection<CommandeDetail> _allCommandesAttente;
         private ObservableCollection<CommandeDetail> _allCommandesTraitee;
         public ObservableCollection<CommandeDetail> allCommandesAttente
@@ -124,7 +155,7 @@ namespace ViewModel
         public ObservableCollection<CommandeDetail> allCommandesTraitee
         {
             get { return _allCommandesTraitee; }
-            set { _allCommandesTraitee = value; OnPropertyChanged(nameof(_allCommandesTraitee)); }
+            set { _allCommandesTraitee = value; OnPropertyChanged(nameof(allCommandesTraitee)); }
         }
         public BibliothequeViewModel(string pathFichier)
         {
@@ -182,7 +213,27 @@ namespace ViewModel
             return null;
         }
 
-
+        public void retirerCommande(Object obj)
+        {
+            Commande foundCommand = new Commande();
+            CommandeDetail commande = obj as CommandeDetail;
+            foreach(Membre membre in Membres)
+            {
+                if (membre.Nom.Equals(commande.NomMembre))
+                {
+                    foreach(Commande commandeMembre in membre.Commandes)
+                    {
+                        if (commandeMembre.ISBN == commande.ISBN)
+                        {
+                            foundCommand=commandeMembre;
+                        }
+                    }
+                    membre.Commandes.Remove(foundCommand);
+                    UtilisateurActuel = membre;
+                }
+            }
+            updateAllCommandes();
+        }
         public void ajouterCommande(string titre, string isbn, string auteur, string editeur, string anneeString)
         {
             int.TryParse(anneeString, out int annee);
@@ -228,11 +279,19 @@ namespace ViewModel
             foundMember.Commandes.Remove(foundCommand);
             foundCommand.Statut = "Traitee";
             foundMember.Commandes.Add(foundCommand);
-            UtilisateurActuel = foundMember;
+            UtilisateurActuel = UtilisateurActuel;
         }
-        public void ChangerUtilisateur(Object obj)
+        public void ChangerUtilisateur()
         {
-            UtilisateurActuel = obj as Membre;
+            UtilisateurActuel = choixUtil;
+            isSelectedBook = false;
+        }
+        public void TransfererLivre()
+        {
+            UtilisateurActuel.LivresISBN.Remove(selectedLivre.ISBN);
+            choixUtil.LivresISBN.Add(selectedLivre.ISBN);
+            UtilisateurActuel=UtilisateurActuel;
+            isSelectedBook = false;
         }
         private void OnPropertyChanged(string? property = null)
         {
