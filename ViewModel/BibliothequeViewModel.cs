@@ -18,6 +18,7 @@ namespace ViewModel
         public ObservableCollection<CommandeDetail> allCommandes { get; private set; }
         public Membre choixUtil { get; set; }
         private Membre _utilisateurActuel;
+        public string _pathFichier;
 
         public Membre UtilisateurActuel
         {
@@ -167,6 +168,7 @@ namespace ViewModel
             allCommandesTraitee = new ObservableCollection<CommandeDetail>();
             LoadDataFromModel();
             UtilisateurActuel = Membres[0];
+            _pathFichier = pathFichier;
         }
         private void LoadDataFromModel()
         {
@@ -200,7 +202,6 @@ namespace ViewModel
                         allCommandesTraitee.Add(commandeDetail);
                     }
                 }
-
             }
         }
         private CommandeDetail ConvertToCommandeDetail(Commande commande, string nom)
@@ -233,6 +234,7 @@ namespace ViewModel
                 }
             }
             updateAllCommandes();
+            _bibliotheque.saveBibliotheque(_pathFichier);
         }
         public void ajouterCommande(string titre, string isbn, string auteur, string editeur, string anneeString)
         {
@@ -247,6 +249,8 @@ namespace ViewModel
                 }
             }
             updateAllCommandes();
+            _bibliotheque.LivreList.Add(new Livre(titre, auteur, editeur, annee, isbn));
+            _bibliotheque.saveBibliotheque(_pathFichier);
         }
         public void TraiterCommande(CommandeDetail commande)
         {
@@ -292,6 +296,7 @@ namespace ViewModel
             choixUtil.LivresISBN.Add(selectedLivre.ISBN);
             UtilisateurActuel=UtilisateurActuel;
             isSelectedBook = false;
+            _bibliotheque.saveBibliotheque(_pathFichier);
         }
         private void OnPropertyChanged(string? property = null)
         {
